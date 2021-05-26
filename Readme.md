@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг»
 
 * Студент: [Владимир Дьяченко](https://up.htmlacademy.ru/javascript/23/user/1520013).
-* Наставник: `Неизвестно`.
+* Наставник: [Дмитрий (sench) Железцов](https://htmlacademy.ru/profile/sench).
 
 ---
 
