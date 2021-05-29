@@ -7,10 +7,9 @@ const getRandomFloat = (min, max, precision = 6) => {
     throw new Error('Precision must be between 0 and 16');
   }
 
-  let result = (Math.random() * (max - min) + min).toFixed(precision);
+  const result = (Math.random() * (max - min) + min).toFixed(precision);
   // toFixed возвращает строчку, приходится делать это
-  result = result * 100 / 100;
-  return result;
+  return result * 100 / 100;
 };
 
 getRandomFloat(0.6, 11.9, 15);
