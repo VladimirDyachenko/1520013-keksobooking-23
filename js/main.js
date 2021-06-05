@@ -1,3 +1,6 @@
+import { getRandomPositiveInteger } from './utils/get-random-positive-integer.js';
+import { getRandomPositiveFloat } from './utils/get-random-positive-float.js';
+
 const getRandomTestData = (amount) => {
   const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
   const CHECK_OPTIONS = ['12:00', '13:00', '14:00'];
