@@ -1,15 +1,72 @@
-const getRandomFloat = (min, max, precision = 6) => {
-  if (min > max || min < 0) {
-    throw new Error('Min must be greater than 0 and max must be greater than min');
+import { getRandomPositiveInteger } from './utils/get-random-positive-integer.js';
+import { getRandomPositiveFloat } from './utils/get-random-positive-float.js';
+
+const getRandomTestData = (amount) => {
+  const OFFER_TYPES = ['palace', 'flat', 'house', 'bungalow', 'hotel'];
+  const CHECK_OPTIONS = ['12:00', '13:00', '14:00'];
+  const OFFER_FEATURES = ['wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner'];
+  const PHOTO_URLS = [
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+    'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+  ];
+
+  const testData = [];
+
+  const getAvatarPath = (function() {
+    let count = 0;
+
+    const increment = function() {
+      count++;
+      return count <= 9 ? `img/avatars/user/0${count}.png` : `img/avatars/user/${count}.png`;
+    };
+
+    return increment;
+  })();
+
+  const getRandomArrayElement = (arr) => arr[getRandomPositiveInteger(0, arr.length - 1)];
+
+  const getRandomArray = (length, dataSource) => {
+    const temp = [];
+
+    for(let index = 0; index < length; index++) {
+      temp.push(getRandomArrayElement(dataSource));
+    }
+
+    return temp;
+  };
+
+  const getFeatures = () => [...new Set(getRandomArray(getRandomPositiveInteger(1, OFFER_FEATURES.length), OFFER_FEATURES))];
+
+  const lat = getRandomPositiveFloat(35.65000, 35.70000, 5);
+  const lng = getRandomPositiveFloat(139.70000, 139.80000, 5);
+
+  for (let index = 0; index < amount; index++) {
+    testData.push({
+      author: {
+        avatar: getAvatarPath(),
+      },
+      offer: {
+        title: 'Title',
+        address: `${lat}, ${lng}`,
+        price: getRandomPositiveInteger(2500, 50000),
+        type: getRandomArrayElement(OFFER_TYPES),
+        rooms: getRandomPositiveInteger(1, 8),
+        guests: getRandomPositiveInteger(1, 8),
+        checkin:  getRandomArrayElement(CHECK_OPTIONS),
+        checkout: getRandomArrayElement(CHECK_OPTIONS),
+        features: getFeatures(),
+        description: 'description',
+        photos: getRandomArray(getRandomPositiveInteger(1, 8), PHOTO_URLS),
+      },
+      location: {
+        lat,
+        lng,
+      },
+    });
   }
 
-  if (precision < 0 || precision > 16) {
-    throw new Error('Precision must be between 0 and 16');
-  }
-
-  const result = (Math.random() * (max - min) + min).toFixed(precision);
-  // toFixed возвращает строчку, приходится делать это
-  return result * 100 / 100;
+  return testData;
 };
 
-getRandomFloat(0.6, 11.9, 15);
+getRandomTestData(10);
