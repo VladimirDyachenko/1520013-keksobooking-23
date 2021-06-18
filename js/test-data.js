@@ -15,12 +15,10 @@ const getRandomTestData = (amount) => {
   const getAvatarPath = (function() {
     let count = 0;
 
-    const increment = function() {
+    return function () {
       count++;
-      return count <= 9 ? `img/avatars/user/0${count}.png` : `img/avatars/user/${count}.png`;
+      return count <= 9 ? `img/avatars/user0${count}.png` : `img/avatars/user${count}.png`;
     };
-
-    return increment;
   })();
 
   const getRandomArrayElement = (arr) => arr[getRandomPositiveInteger(0, arr.length - 1)];
