@@ -17,7 +17,7 @@ const getRandomTestData = (amount) => {
 
     const increment = function() {
       count++;
-      return count <= 9 ? `img/avatars/user/0${count}.png` : `img/avatars/user/${count}.png`;
+      return count <= 9 ? `img/avatars/user0${count}.png` : `img/avatars/user${count}.png`;
     };
 
     return increment;
