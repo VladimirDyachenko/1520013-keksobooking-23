@@ -37,7 +37,7 @@ const getOfferCards = (offerData) => {
     if (offer.price) {
       price.textContent = `${offer.price} ₽/ночь`;
     } else {
-      price.style.opacity = 0;
+      price.style.opacity = '0';
     }
 
     type.textContent = OFFER_TYPES_ENUM[offer.type];
@@ -45,13 +45,13 @@ const getOfferCards = (offerData) => {
     if (offer.rooms && offer.guests) {
       capacity.textContent = `${offer.rooms} комнаты для ${offer.guests} гостей`;
     } else {
-      capacity.style.opacity = 0;
+      capacity.style.opacity = '0';
     }
 
     if (offer.checkin && offer.checkout) {
       time.textContent = `Заезд после ${offer.checkin}, выезд до ${offer.checkout}`;
     } else {
-      time.style.opacity = 0;
+      time.style.opacity = '0';
     }
 
     description.textContent = offer.description;
