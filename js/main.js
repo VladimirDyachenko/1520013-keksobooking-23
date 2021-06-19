@@ -1,5 +1,10 @@
 import { getRandomTestData } from './test-data.js';
 import { getOfferCards } from './getOfferCards.js';
+import { setPageActive } from './pageState.js';
+
+setPageActive(false);
+
+setTimeout(() => setPageActive(true), 5000);
 
 const data = getRandomTestData(10);
 
