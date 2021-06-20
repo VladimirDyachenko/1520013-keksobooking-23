@@ -1,5 +1,12 @@
 import { getRandomTestData } from './test-data.js';
 import { getOfferCards } from './getOfferCards.js';
+import { setPageActive } from './pageState.js';
+
+const FORM_CHANGE_STATE_DELAY = 5000;
+
+setPageActive(false);
+
+setTimeout(() => setPageActive(true), FORM_CHANGE_STATE_DELAY);
 
 const data = getRandomTestData(10);
 
