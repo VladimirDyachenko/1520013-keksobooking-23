@@ -1,6 +1,7 @@
 import { getRandomTestData } from './test-data.js';
 import { getOfferCards } from './getOfferCards.js';
 import { setPageActive } from './pageState.js';
+import { } from './addForm.js';
 
 const FORM_CHANGE_STATE_DELAY = 5000;
 
