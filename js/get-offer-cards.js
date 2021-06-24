@@ -1,7 +1,7 @@
 const OFFER_TYPES_ENUM = {
   'palace': 'Дворец',
   'flat': 'Квартира',
-  'house': 'Дом ',
+  'house': 'Дом',
   'bungalow': 'Бунгало',
   'hotel': 'Отель',
 };
