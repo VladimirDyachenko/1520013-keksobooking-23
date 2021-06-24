@@ -5,6 +5,7 @@ const roomsInput = addForm.querySelector('[id="room_number"]');
 const typeInput = addForm.querySelector('[id="type"]');
 const capacityInput = addForm.querySelector('[id="capacity"]');
 const submitButton = addForm.querySelector('.ad-form__submit');
+const timeFieldSet = addForm.querySelector('[id="timein"]').parentNode;
 
 const TITLE_MIN_LENGTH = titleInput.minLength !== -1 ? titleInput.minLength : 30;
 const TITLE_MAX_LENGTH = titleInput.maxLength !== -1 ? titleInput.maxLength : 100;
@@ -35,6 +36,7 @@ const ROOM_CAPACITY = {
   },
 };
 
+// Валидация полей
 const isTitleValid = () => {
   const titleLength = titleInput.value.length;
   const isValid = titleLength >= TITLE_MIN_LENGTH && titleLength <= TITLE_MAX_LENGTH;
@@ -58,7 +60,10 @@ const isPriceValid = () => {
   const minPrice = MIN_PRICES[typeInput.value];
   let isValid = true;
 
-  if (minPrice > priceInput.value) {
+  if (priceInput.validity.valueMissing) {
+    priceInput.setCustomValidity('Обязательное поле');
+    isValid = false;
+  } else if (minPrice > priceInput.value) {
     priceInput.setCustomValidity(`Минимальная цена для этого типа жилья: ${minPrice}₽`);
     isValid = false;
   } else if (priceInput.value > MAX_PRICE){
@@ -103,6 +108,8 @@ const isFormValid = () => {
   return isValid;
 };
 
+
+// Обработка событий ввода
 const handleTitleInput = () => {
   isTitleValid();
 };
@@ -115,6 +122,8 @@ const handleTypeInput = () => {
 
   priceInput.min = minPrice;
   priceInput.placeholder = minPrice;
+  isPriceValid();
+  priceInput.reportValidity();
 };
 
 typeInput.addEventListener('input', handleTypeInput);
@@ -148,6 +157,18 @@ const handleCapacityChange = () => {
 };
 
 capacityInput.addEventListener('change', handleCapacityChange);
+
+const handleTimeInput = (event) => {
+  const timeInSelect = timeFieldSet.querySelector('[id="timein"]');
+  const timeOutSelect = timeFieldSet.querySelector('[id="timeout"]');
+
+  const selectToUpdate =
+    event.target === timeInSelect ? timeOutSelect : timeInSelect;
+
+  selectToUpdate.value = event.target.value;
+};
+
+timeFieldSet.addEventListener('change', handleTimeInput);
 
 submitButton.addEventListener('click', (event) => {
   if (!isFormValid()) {
