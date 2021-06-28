@@ -35,10 +35,9 @@ const getRandomTestData = (amount) => {
 
   const getFeatures = () => [...new Set(getRandomArray(getRandomPositiveInteger(1, OFFER_FEATURES.length), OFFER_FEATURES))];
 
-  const lat = getRandomPositiveFloat(35.65000, 35.70000, 5);
-  const lng = getRandomPositiveFloat(139.70000, 139.80000, 5);
-
   for (let index = 0; index < amount; index++) {
+    const lat = getRandomPositiveFloat(35.65000, 35.70000, 5);
+    const lng = getRandomPositiveFloat(139.70000, 139.80000, 5);
     testData.push({
       author: {
         avatar: getAvatarPath(),

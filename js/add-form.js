@@ -6,6 +6,7 @@ const typeInput = addForm.querySelector('[id="type"]');
 const capacityInput = addForm.querySelector('[id="capacity"]');
 const submitButton = addForm.querySelector('.ad-form__submit');
 const timeFieldSet = addForm.querySelector('[id="timein"]').parentNode;
+const addressInput = addForm.querySelector('[id="address"]');
 
 const TITLE_MIN_LENGTH = titleInput.minLength !== -1 ? titleInput.minLength : 30;
 const TITLE_MAX_LENGTH = titleInput.maxLength !== -1 ? titleInput.maxLength : 100;
@@ -177,4 +178,10 @@ submitButton.addEventListener('click', (event) => {
   }
 });
 
-export { };
+addressInput.classList.add('ad-form--disabled');
+
+const setAddressInputValue = (newValue) => {
+  addressInput.value = newValue;
+};
+
+export { setAddressInputValue };
