@@ -55,7 +55,7 @@ const addressSelect = Leaflet.marker(
 
 addressSelect.on('moveend', (event) => {
   const { lat, lng } = event.target.getLatLng();
-  setAddressInputValue(`${lat}, ${lng}`);
+  setAddressInputValue(`${lat.toFixed(5)}, ${lng.toFixed(5)}`);
 });
 
 const offerMarkersGroup = Leaflet.layerGroup().addTo(map);
