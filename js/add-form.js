@@ -1,10 +1,13 @@
+import { submitAddForm } from './rest.js';
+import { openSuccessModal, openErrorModal } from './modal.js';
+
 const addForm = document.querySelector('.ad-form');
 const titleInput = addForm.querySelector('[id="title"]');
 const priceInput = addForm.querySelector('[id="price"]');
 const roomsInput = addForm.querySelector('[id="room_number"]');
 const typeInput = addForm.querySelector('[id="type"]');
 const capacityInput = addForm.querySelector('[id="capacity"]');
-const submitButton = addForm.querySelector('.ad-form__submit');
+const resetButton = addForm.querySelector('.ad-form__reset');
 const timeFieldSet = addForm.querySelector('[id="timein"]').parentNode;
 const addressInput = addForm.querySelector('[id="address"]');
 
@@ -67,7 +70,7 @@ const isPriceValid = () => {
   } else if (minPrice > priceInput.value) {
     priceInput.setCustomValidity(`Минимальная цена для этого типа жилья: ${minPrice}₽`);
     isValid = false;
-  } else if (priceInput.value > MAX_PRICE){
+  } else if (priceInput.value > MAX_PRICE) {
     priceInput.setCustomValidity(`Максимальная цена для этого типа жилья: ${MAX_PRICE}₽`);
     isValid = false;
   } else {
@@ -171,12 +174,32 @@ const handleTimeInput = (event) => {
 
 timeFieldSet.addEventListener('change', handleTimeInput);
 
-submitButton.addEventListener('click', (event) => {
+const resetForm = () => addForm.reset();
+
+const handleErrorSubmit = () => {
+  openErrorModal();
+};
+
+const handleSuccessfullySubmit = () => {
+  resetForm();
+  openSuccessModal();
+};
+
+const handleSubmit = async (event) => {
+  event.preventDefault();
   if (!isFormValid()) {
     addForm.reportValidity();
-    event.preventDefault();
+    return;
   }
-});
+
+  const formData = new FormData(event.target);
+
+  await submitAddForm(handleSuccessfullySubmit, handleErrorSubmit, formData);
+};
+
+resetButton.addEventListener('click', resetForm);
+
+addForm.addEventListener('submit', handleSubmit);
 
 addressInput.classList.add('ad-form--disabled');
 

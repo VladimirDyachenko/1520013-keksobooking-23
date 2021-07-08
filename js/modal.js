@@ -1,4 +1,5 @@
 const ERROR_MODAL_TEMPLATE = document.querySelector('#error');
+const SUCCESS_MODAL_TEMPLATE = document.querySelector('#success');
 
 const clickHandler = (event) => {
   const modalElement = document.querySelector('.error, .success');
@@ -31,8 +32,13 @@ const openErrorModal = (messageText, buttonText, onClick) => {
   const text = modal.querySelector('.error__message');
   const closeButton = modal.querySelector('.error__button');
 
-  text.textContent = messageText;
-  closeButton.textContent = buttonText;
+  if (messageText) {
+    text.textContent = messageText;
+  }
+
+  if (buttonText) {
+    closeButton.textContent = buttonText;
+  }
 
   if (onClick) {
     closeButton.addEventListener('click', onClick);
@@ -48,5 +54,16 @@ const openErrorModal = (messageText, buttonText, onClick) => {
   document.body.addEventListener('keydown', keyDownHandler);
 };
 
+const openSuccessModal = () => {
+  const modal = SUCCESS_MODAL_TEMPLATE.content
+    .querySelector('.success')
+    .cloneNode(true);
 
-export { openErrorModal };
+  document.body.appendChild(modal);
+
+  document.body.addEventListener('click', clickHandler);
+  document.body.addEventListener('keydown', keyDownHandler);
+
+};
+
+export { openErrorModal, openSuccessModal };
