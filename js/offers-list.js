@@ -2,21 +2,20 @@ import { getOffersFromServer } from './rest.js';
 import { addOffersToMap } from './map.js';
 import { openErrorModal } from './modal.js';
 
-let offers = [];
+let cachedOffers = [];
 
-const setOffersList = (offersLis) => {
-  offers = offersLis;
-  addOffersToMap(offers, true);
-};
+const renderOffers = (offersLis) => addOffersToMap(offersLis, true);
 
-const getOffersList = () => [...offers];
+const getAllOffers = () => [...cachedOffers];
 
 (async () => {
   await getOffersFromServer(
-    (offersList) => setOffersList(offersList),
-    () => openErrorModal('Не удалось загрузить объявления', 'Перезагрузить', () => document.location.reload()),
+    (offersList) => {
+      cachedOffers = offersList;
+      renderOffers(offersList);
+    },
+    () => openErrorModal('Не удалось загрузить объявления', 'Перезагрузить страницу', () => document.location.reload()),
   );
-
 })();
 
-export { setOffersList, getOffersList };
+export { renderOffers, getAllOffers };
