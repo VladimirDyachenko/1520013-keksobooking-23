@@ -55,10 +55,12 @@ const getOfferCard = (offerData) => {
   const featureList = Array.from(features.children)
     .filter((featureItem) => {
       let check = false;
-      for (const offerFeature of offer.features) {
-        if (featureItem.classList.contains(`popup__feature--${offerFeature}`)) {
-          check = true;
-          break;
+      if (offer.features !== undefined) {
+        for (const offerFeature of offer.features) {
+          if (featureItem.classList.contains(`popup__feature--${offerFeature}`)) {
+            check = true;
+            break;
+          }
         }
       }
       return check;
@@ -66,9 +68,12 @@ const getOfferCard = (offerData) => {
   features.replaceChildren(...featureList);
 
   photos.replaceChildren();
-  offer.photos.forEach((photoUrl) => {
-    photos.insertAdjacentHTML('beforeend', `<img src="${photoUrl}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
-  });
+
+  if (offer.photos !== undefined) {
+    offer.photos.forEach((photoUrl) => {
+      photos.insertAdjacentHTML('beforeend', `<img src="${photoUrl}" class="popup__photo" width="45" height="40" alt="Фотография жилья">`);
+    });
+  }
 
   avatar.src = author.avatar;
 

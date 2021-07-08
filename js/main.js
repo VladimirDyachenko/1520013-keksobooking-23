@@ -1,4 +1,1 @@
-import { getRandomTestData } from './test-data.js';
-import { addOffersToMap } from './map.js';
-
-addOffersToMap(getRandomTestData(10));
+import { } from './offers-list.js';

@@ -60,7 +60,13 @@ addressSelect.on('moveend', (event) => {
 
 const offerMarkersGroup = Leaflet.layerGroup().addTo(map);
 
-const addOffersToMap = (data) => {
+const addOffersToMap = (data, clearBefore) => {
+
+  if (clearBefore)  {
+    offerMarkersGroup.clearLayers();
+  }
+
+  data = data.slice(0, 10);
 
   for (const offerObject of data) {
     const { lat, lng } = offerObject.location;
