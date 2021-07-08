@@ -1,5 +1,6 @@
 import { submitAddForm } from './rest.js';
 import { openSuccessModal, openErrorModal } from './modal.js';
+import { resetMap } from './map.js';
 
 const addForm = document.querySelector('.ad-form');
 const titleInput = addForm.querySelector('[id="title"]');
@@ -174,7 +175,10 @@ const handleTimeInput = (event) => {
 
 timeFieldSet.addEventListener('change', handleTimeInput);
 
-const resetForm = () => addForm.reset();
+const resetForm = () => {
+  addForm.reset();
+  resetMap();
+};
 
 const handleErrorSubmit = () => {
   openErrorModal();
