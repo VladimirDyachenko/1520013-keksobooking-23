@@ -11,6 +11,9 @@ const capacityInput = addForm.querySelector('[id="capacity"]');
 const resetButton = addForm.querySelector('.ad-form__reset');
 const timeFieldSet = addForm.querySelector('[id="timein"]').parentNode;
 const addressInput = addForm.querySelector('[id="address"]');
+const photoPickers = document.querySelectorAll('input[type="file"]');
+const avatarPreview = document.querySelector('.ad-form-header__preview > img');
+const offerPhoto = document.querySelector('.ad-form__photo');
 
 const TITLE_MIN_LENGTH = titleInput.minLength !== -1 ? titleInput.minLength : 30;
 const TITLE_MAX_LENGTH = titleInput.maxLength !== -1 ? titleInput.maxLength : 100;
@@ -40,6 +43,7 @@ const ROOM_CAPACITY = {
     errorMessage: 'Выбранное количество комнат подходит только для "Не для гостей"',
   },
 };
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'] ;
 
 // Валидация полей
 const isTitleValid = () => {
@@ -210,5 +214,45 @@ addressInput.classList.add('ad-form--disabled');
 const setAddressInputValue = (newValue) => {
   addressInput.value = newValue;
 };
+
+const createPreview = (image, inputElement) => {
+
+  if (inputElement.id === 'avatar') {
+    avatarPreview.src = image;
+    return;
+  }
+
+  const previewImage = document.createElement('img');
+  previewImage.src = image;
+  previewImage.alt = 'Фотография жилья';
+  previewImage.width = 70;
+  previewImage.height = 70;
+  if (offerPhoto.firstChild) {
+    offerPhoto.replaceChild(previewImage, offerPhoto.firstChild);
+  }
+  offerPhoto.appendChild(previewImage);
+};
+
+const handlePhotoChange = (event) => {
+
+  const file = event.target.files[0];
+
+  if (file) {
+    const fileName = file.name.toLowerCase();
+    const match = FILE_TYPES.some((extension) => fileName.endsWith(extension));
+
+    if (match) {
+      const reader = new FileReader();
+
+      reader.addEventListener('load', () => {
+        createPreview(reader.result, event.target);
+      });
+
+      reader.readAsDataURL(file);
+    }
+  }
+};
+
+photoPickers.forEach((element) => element.addEventListener('change', handlePhotoChange));
 
 export { setAddressInputValue };
