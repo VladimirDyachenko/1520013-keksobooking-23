@@ -1,5 +1,5 @@
-const ERROR_MODAL_TEMPLATE = document.querySelector('#error');
-const SUCCESS_MODAL_TEMPLATE = document.querySelector('#success');
+const errorModalTemplate = document.querySelector('#error');
+const successModalTemplate = document.querySelector('#success');
 
 const clickHandler = (event) => {
   const modalElement = document.querySelector('.error, .success');
@@ -25,7 +25,7 @@ const closeModal = () => {
 };
 
 const openErrorModal = (messageText, buttonText, onClick) => {
-  const modal = ERROR_MODAL_TEMPLATE.content
+  const modal = errorModalTemplate.content
     .querySelector('.error')
     .cloneNode(true);
 
@@ -55,7 +55,7 @@ const openErrorModal = (messageText, buttonText, onClick) => {
 };
 
 const openSuccessModal = () => {
-  const modal = SUCCESS_MODAL_TEMPLATE.content
+  const modal = successModalTemplate.content
     .querySelector('.success')
     .cloneNode(true);
 
