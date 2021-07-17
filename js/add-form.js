@@ -146,11 +146,7 @@ const handleRoomsInput = () => {
   const capacityOptions = capacityInput.querySelectorAll('option');
 
   for (const option of capacityOptions) {
-    if (RoomCapacity[roomsAmount].capacityOptions.includes(option.value)) {
-      option.disabled = false;
-    } else {
-      option.disabled = true;
-    }
+    option.disabled = !RoomCapacity[roomsAmount].capacityOptions.includes(option.value);
   }
   isCapacityValid();
   capacityInput.reportValidity();
