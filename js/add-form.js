@@ -18,7 +18,7 @@ const offerPhoto = document.querySelector('.ad-form__photo');
 const TITLE_MIN_LENGTH = titleInput.minLength !== -1 ? titleInput.minLength : 30;
 const TITLE_MAX_LENGTH = titleInput.maxLength !== -1 ? titleInput.maxLength : 100;
 const MAX_PRICE = 1000000;
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'] ;
+const VALID_FILE_EXTENSIONS = ['gif', 'jpg', 'jpeg', 'png'] ;
 const MinimumPriceByType = {
   'bungalow': 0,
   'flat': 1000,
@@ -227,7 +227,7 @@ const handlePhotoChange = (event) => {
 
   if (file) {
     const fileName = file.name.toLowerCase();
-    const match = FILE_TYPES.some((extension) => fileName.endsWith(extension));
+    const match = VALID_FILE_EXTENSIONS.some((extension) => fileName.endsWith(extension));
 
     if (match) {
       const reader = new FileReader();
