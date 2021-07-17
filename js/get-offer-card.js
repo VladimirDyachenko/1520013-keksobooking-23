@@ -5,11 +5,11 @@ const OFFER_TYPES_ENUM = {
   'bungalow': 'Бунгало',
   'hotel': 'Отель',
 };
-const CARD_TEMPLATE = document.querySelector('#card');
+const cardTemplate = document.querySelector('#card');
 
 const getOfferCard = (offerData) => {
 
-  const card = CARD_TEMPLATE.content
+  const card = cardTemplate.content
     .querySelector('.popup')
     .cloneNode(true);
 

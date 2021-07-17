@@ -18,14 +18,15 @@ const offerPhoto = document.querySelector('.ad-form__photo');
 const TITLE_MIN_LENGTH = titleInput.minLength !== -1 ? titleInput.minLength : 30;
 const TITLE_MAX_LENGTH = titleInput.maxLength !== -1 ? titleInput.maxLength : 100;
 const MAX_PRICE = 1000000;
-const MIN_PRICES = {
+const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'] ;
+const MinimumPriceByType = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
   'house': 5000,
   'palace': 10000,
 };
-const ROOM_CAPACITY = {
+const RoomCapacity = {
   '1': {
     capacityOptions: ['1'],
     errorMessage: 'Только для одного гостя',
@@ -43,7 +44,6 @@ const ROOM_CAPACITY = {
     errorMessage: 'Выбранное количество комнат подходит только для "Не для гостей"',
   },
 };
-const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'] ;
 
 // Валидация полей
 const isTitleValid = () => {
@@ -66,14 +66,14 @@ const isTitleValid = () => {
 };
 
 const isPriceValid = () => {
-  const minPrice = MIN_PRICES[typeInput.value];
+  const minimumPrice = MinimumPriceByType[typeInput.value];
   let isValid = true;
 
   if (priceInput.validity.valueMissing) {
     priceInput.setCustomValidity('Обязательное поле');
     isValid = false;
-  } else if (minPrice > priceInput.value) {
-    priceInput.setCustomValidity(`Минимальная цена для этого типа жилья: ${minPrice}₽`);
+  } else if (minimumPrice > priceInput.value) {
+    priceInput.setCustomValidity(`Минимальная цена для этого типа жилья: ${minimumPrice}₽`);
     isValid = false;
   } else if (priceInput.value > MAX_PRICE) {
     priceInput.setCustomValidity(`Максимальная цена для этого типа жилья: ${MAX_PRICE}₽`);
@@ -88,10 +88,10 @@ const isPriceValid = () => {
 const isCapacityValid = () => {
   const rooms = roomsInput.value;
   const capacity = capacityInput.value;
-  const isValid = ROOM_CAPACITY[rooms].capacityOptions.includes(capacity);
+  const isValid = RoomCapacity[rooms].capacityOptions.includes(capacity);
 
   if (!isValid) {
-    capacityInput.setCustomValidity(ROOM_CAPACITY[rooms].errorMessage);
+    capacityInput.setCustomValidity(RoomCapacity[rooms].errorMessage);
   } else {
     capacityInput.setCustomValidity('');
   }
@@ -117,20 +117,17 @@ const isFormValid = () => {
   return isValid;
 };
 
-
 // Обработка событий ввода
-const handleTitleInput = () => {
-  isTitleValid();
-};
+const handleTitleInput = () => isTitleValid();
 
 titleInput.addEventListener('input', handleTitleInput);
 
 const handleTypeInput = () => {
   const selected = typeInput.value;
-  const minPrice = MIN_PRICES[selected];
+  const minimumPriceForType = MinimumPriceByType[selected];
 
-  priceInput.min = minPrice;
-  priceInput.placeholder = minPrice;
+  priceInput.min = minimumPriceForType;
+  priceInput.placeholder = minimumPriceForType;
   isPriceValid();
   priceInput.reportValidity();
 };
@@ -149,7 +146,7 @@ const handleRoomsInput = () => {
   const capacityOptions = capacityInput.querySelectorAll('option');
 
   for (const option of capacityOptions) {
-    if (ROOM_CAPACITY[roomsAmount].capacityOptions.includes(option.value)) {
+    if (RoomCapacity[roomsAmount].capacityOptions.includes(option.value)) {
       option.disabled = false;
     } else {
       option.disabled = true;
@@ -161,9 +158,7 @@ const handleRoomsInput = () => {
 
 roomsInput.addEventListener('input', handleRoomsInput);
 
-const handleCapacityChange = () => {
-  isCapacityValid();
-};
+const handleCapacityChange = () => isCapacityValid();
 
 capacityInput.addEventListener('change', handleCapacityChange);
 
@@ -171,8 +166,7 @@ const handleTimeInput = (event) => {
   const timeInSelect = timeFieldSet.querySelector('[id="timein"]');
   const timeOutSelect = timeFieldSet.querySelector('[id="timeout"]');
 
-  const selectToUpdate =
-    event.target === timeInSelect ? timeOutSelect : timeInSelect;
+  const selectToUpdate = event.target === timeInSelect ? timeOutSelect : timeInSelect;
 
   selectToUpdate.value = event.target.value;
 };
@@ -184,9 +178,7 @@ const resetForm = () => {
   resetMap();
 };
 
-const handleErrorSubmit = () => {
-  openErrorModal();
-};
+const handleErrorSubmit = () => openErrorModal();
 
 const handleSuccessfullySubmit = () => {
   resetForm();
