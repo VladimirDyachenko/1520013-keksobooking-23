@@ -1,7 +1,7 @@
 const errorModalTemplate = document.querySelector('#error');
 const successModalTemplate = document.querySelector('#success');
 
-const clickHandler = (event) => {
+const handleClick = (event) => {
   const modalElement = document.querySelector('.error, .success');
   if (event.target === modalElement) {
     // eslint-disable-next-line no-use-before-define
@@ -9,7 +9,7 @@ const clickHandler = (event) => {
   }
 };
 
-const keyDownHandler = (event) => {
+const handleKeyDown = (event) => {
   if (event.key === 'Escape') {
     // eslint-disable-next-line no-use-before-define
     closeModal();
@@ -20,8 +20,8 @@ const closeModal = () => {
   const modalElement = document.querySelector('.error, .success');
 
   modalElement.remove();
-  document.body.removeEventListener('click', clickHandler);
-  document.body.removeEventListener('keydown', keyDownHandler);
+  document.body.removeEventListener('click', handleClick);
+  document.body.removeEventListener('keydown', handleKeyDown);
 };
 
 const openErrorModal = (messageText, buttonText, onClick) => {
@@ -50,8 +50,8 @@ const openErrorModal = (messageText, buttonText, onClick) => {
 
   document.body.appendChild(modal);
 
-  document.body.addEventListener('click', clickHandler);
-  document.body.addEventListener('keydown', keyDownHandler);
+  document.body.addEventListener('click', handleClick);
+  document.body.addEventListener('keydown', handleKeyDown);
 };
 
 const openSuccessModal = () => {
@@ -61,8 +61,8 @@ const openSuccessModal = () => {
 
   document.body.appendChild(modal);
 
-  document.body.addEventListener('click', clickHandler);
-  document.body.addEventListener('keydown', keyDownHandler);
+  document.body.addEventListener('click', handleClick);
+  document.body.addEventListener('keydown', handleKeyDown);
 
 };
 
