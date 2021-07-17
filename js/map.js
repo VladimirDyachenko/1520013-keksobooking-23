@@ -26,7 +26,10 @@ setPageActive(false);
 
 const map = Leaflet
   .map('map-canvas')
-  .on('load', () => setPageActive(true))
+  .on('load', () => {
+    setPageActive(true);
+    setAddressInputValue(`${INITIAL_MAP_OPTIONS.lat.toFixed(5)}, ${INITIAL_MAP_OPTIONS.lng.toFixed(5)}`);
+  })
   .setView(
     {
       lat: INITIAL_MAP_OPTIONS.lat,
