@@ -75,7 +75,7 @@ const filterOffers = () => {
     },
   };
 
-  const filtredList = offers.filter(({ offer }) => {
+  const filteredList = offers.filter(({ offer }) => {
     for (const condition in filterConditions) {
       let check = true;
       if (filterConditions[condition].value) {
@@ -89,7 +89,7 @@ const filterOffers = () => {
     return true;
   });
 
-  renderOffers(filtredList);
+  renderOffers(filteredList);
 };
 
 filterForm.addEventListener('change', debounce(() => filterOffers()));
