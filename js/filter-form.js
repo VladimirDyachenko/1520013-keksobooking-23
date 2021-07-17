@@ -16,15 +16,15 @@ const featuresFilter = document.querySelector('#housing-features');
 
 const getSelectedFeatures = () => {
   const selectedFeatures = featuresFilter.querySelectorAll('input');
-  const result = [];
+  const features = [];
 
   for (const option of selectedFeatures.values()) {
     if (option.checked) {
-      result.push(option.value);
+      features.push(option.value);
     }
   }
 
-  return result.length > 0 ? result : false;
+  return features.length > 0 ? features : false;
 };
 
 const filterOffers = () => {
@@ -59,13 +59,13 @@ const filterOffers = () => {
     },
     features: {
       value: getSelectedFeatures(),
-      filterFunction: (offerFeatures, filterValue) => {
+      filterFunction: (offerFeatures, selectedFilterFeatures) => {
 
         if (offerFeatures === undefined) {
           return false;
         }
 
-        for (const feature of filterValue) {
+        for (const feature of selectedFilterFeatures) {
           if (!offerFeatures.includes(feature)) {
             return false;
           }
