@@ -22,8 +22,6 @@ const OFFER_ICON = Leaflet.icon({
   iconAnchor: [20, 40],
 });
 
-const MAX_OFFERS_MARKERS = 10;
-
 setPageActive(false);
 
 const map = Leaflet
@@ -62,13 +60,13 @@ addressSelect.on('moveend', (event) => {
 
 const offerMarkersGroup = Leaflet.layerGroup().addTo(map);
 
-const addOffersToMap = (data, clearBefore) => {
+const addOffersToMap = (data, clearBefore, maxMarkers = 10) => {
 
   if (clearBefore)  {
     offerMarkersGroup.clearLayers();
   }
 
-  data = data.slice(0, MAX_OFFERS_MARKERS);
+  data = data.slice(0, maxMarkers);
 
   for (const offerObject of data) {
     const { lat, lng } = offerObject.location;
